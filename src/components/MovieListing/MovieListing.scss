@@ -24,6 +24,9 @@
             color: $font-primary;
         }
     }
+    @media (max-width: 666px) {
+        margin: 0px auto;
+    }
 }
 .loading {
     width: 100%;

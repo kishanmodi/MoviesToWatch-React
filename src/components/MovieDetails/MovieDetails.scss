@@ -8,6 +8,11 @@
     color: $font-primary;
     font-weight: 400;
     margin-bottom: 70px;
+    @media (max-width: 666px) {
+        width: 100%;
+        flex-direction: column-reverse;
+        margin: 0px auto;
+    }
 }
 
 .movie-rating {
@@ -24,6 +29,10 @@
 .movie-title {
     font-size: 50px;
     color: $font-primary;
+    @media (max-width: 666px) {
+        text-align: center;
+        font-size: 36px;
+    }
 }
 
 .movie-plot {
@@ -31,6 +40,11 @@
     line-height: 1.8rem;
 }
 
+.movie-info {
+    @media (max-width: 666px) {
+        margin-top: 10px;
+    }
+}
 .movie-info > div span:first-child {
     padding: 10px 0px;
     color: $font-primary;
@@ -58,4 +72,10 @@
 
 .section-right {
     margin-left: 30px;
+    img {
+        border-radius: 12px;
+    }
+    @media (max-width: 666px) {
+        margin: 0px auto;
+    }
 }
