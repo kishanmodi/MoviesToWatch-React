@@ -110,8 +110,13 @@ const movieSlice = createSlice({
                 selectedMovieRecommendation: payload
             };
         },
-        [fetchAsyncRecommedation.rejected]: () => {
+        [fetchAsyncRecommedation.rejected]: (state) => {
             console.log('rejected');
+            return {
+                ...state,
+                loading: false,
+                selectedMovieRecommendation: []
+            };
         }
     }
 });

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import user from '../../images/user.png';
+import movie from '../../images/movie.png';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './Header.scss';
@@ -26,14 +27,22 @@ export const Header = () => {
     return (
         <div className='header'>
             <div className='logo'>
-                <Link to='/'>MoviesToWatch</Link>
+                <Link to='/'>
+                    <div className='brand'>
+                        <img
+                            src={movie}
+                            alt='MoviesToWatch'
+                        />
+                        <div>MoviesToWatch</div>
+                    </div>
+                </Link>
             </div>
             <div className='search-bar'>
                 <form onSubmit={submitHandler}>
                     <input
                         type='text'
                         value={term}
-                        placeholder='Search Movies and Shows'
+                        placeholder='Search...'
                         onChange={(e) => setTerm(e.target.value)}
                     />
                     <button type='submit'>
