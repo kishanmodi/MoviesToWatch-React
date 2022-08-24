@@ -8,6 +8,7 @@
     color: $font-primary;
     font-weight: 400;
     margin-bottom: 70px;
+    position: relative;
     @media (max-width: 666px) {
         width: 100%;
         flex-direction: column-reverse;
@@ -39,10 +40,63 @@
     margin-top: 20px;
     line-height: 1.8rem;
 }
-
+.info-box {
+    position: relative;
+    @media (max-width: 1000px) {
+        position: static;
+    }
+}
 .movie-info {
     @media (max-width: 666px) {
         margin-top: 10px;
+    }
+    flex: 2;
+}
+.provider-box {
+    font-weight: bold;
+    position: absolute;
+    top: 30%;
+    right: 0%;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    img {
+        border-radius: 10px;
+        width: 44px;
+        height: 44px;
+    }
+    .stream {
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 28px;
+        width: 100%;
+    }
+    .youtube {
+        text-align: center;
+        flex: 1;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    .ott {
+        flex: 1;
+        text-align: center;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+    @media (max-width: 1000px) {
+        top: 80%;
+        .stream {
+            font-size: 18px;
+        }
+    }
+    @media (max-width: 666px) {
+        margin-top: 30px;
+        position: static;
+        top: 100%;
+        .stream {
+            font-size: 20px;
+        }
     }
 }
 .movie-info > div span:first-child {

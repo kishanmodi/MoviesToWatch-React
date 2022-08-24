@@ -2,11 +2,11 @@
 .card-item {
     background: $secondary-color;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.4s;
     border-radius: 8px;
-    min-height: 450px;
+    min-height: 420px;
     height: 100%;
-    margin: 10px;
+    margin: 16px;
     &:hover {
         transform: scale(1.1);
         transition: all 0.3s;
@@ -28,7 +28,7 @@
     color: $font-primary;
 
     h4 {
-        font-size: 22px;
+        font-size: 1rem;
         font-weight: 400;
         margin-bottom: 10px;
     }

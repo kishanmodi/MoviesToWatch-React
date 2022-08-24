@@ -14,7 +14,17 @@ export const fetchAsyncMovies = createAsyncThunk(
         return response.data;
     }
 );
-
+export const fetchAsyncProviders = createAsyncThunk(
+    'movies/fetchAsyncProviders',
+    async (id) => {
+        const response = await axios
+            .get(`https://get-rcmd.herokuapp.com/provider/?id=${id}`)
+            .catch((err) => {
+                console.log(err);
+            });
+        return response.data;
+    }
+);
 export const fetchAsyncShows = createAsyncThunk(
     'movies/fecthAsyncShows',
     async (term) => {
@@ -63,6 +73,8 @@ const initialState = {
     shows: {},
     selectedMovieOrShow: {},
     selectedMovieRecommendation: [],
+    providers: {},
+    loadingProvider: false,
     loading: false
 };
 
@@ -75,6 +87,9 @@ const movieSlice = createSlice({
         },
         removeRecommended: (state) => {
             state.selectedMovieRecommendation = [];
+        },
+        removeProviders: (state) => {
+            state.loadingProvider = false;
         }
     },
     extraReducers: {
@@ -98,12 +113,12 @@ const movieSlice = createSlice({
             return { ...state, selectedMovieOrShow: payload };
         },
         [fetchAsyncRecommedation.pending]: (state) => {
-            console.log('pending');
+            console.log('pending rcmd');
             return { ...state, loading: true };
         },
         [fetchAsyncRecommedation.fulfilled]: (state, { payload }) => {
-            console.log('fetched SuccessFully');
-            console.log(payload);
+            console.log('fetched SuccessFully recmd');
+
             return {
                 ...state,
                 loading: false,
@@ -111,24 +126,36 @@ const movieSlice = createSlice({
             };
         },
         [fetchAsyncRecommedation.rejected]: (state) => {
-            console.log('rejected');
+            console.log('rejected rcmd');
             return {
                 ...state,
                 loading: false,
                 selectedMovieRecommendation: []
             };
+        },
+        [fetchAsyncProviders.fulfilled]: (state, { payload }) => {
+            console.log('fetched SuccessFully providers');
+            return {
+                ...state,
+                providers: payload,
+                loadingProvider: true
+            };
         }
     }
 });
 
-export const { removeSelectedMoviesOrShows, removeRecommended } =
-    movieSlice.actions;
+export const {
+    removeSelectedMoviesOrShows,
+    removeRecommended,
+    removeProviders
+} = movieSlice.actions;
 export const getAllMovies = (state) => state.movies.movies;
 export const getAllShows = (state) => state.movies.shows;
 export const getSelectedMovieOrShowDetails = (state) =>
     state.movies.selectedMovieOrShow;
 export const getRecommendedMovies = (state) =>
     state.movies.selectedMovieRecommendation;
-
+export const getProviders = (state) => state.movies.providers;
 export const getLoading = (state) => state.movies.loading;
+export const getLoadingProvider = (state) => state.movies.loadingProvider;
 export default movieSlice.reducer;
