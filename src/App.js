@@ -16,6 +16,7 @@ import {
     fetchAsyncShows
 } from './features/movies/movieSlice';
 import { Forget } from './components/Forget/Forget';
+import { PrivateSignupLogin } from './PrivateSignupLogin';
 function App() {
     const dispatch = useDispatch();
     const movieText = 'BatMan';
@@ -41,11 +42,19 @@ function App() {
                         />
                         <Route
                             path='/signup'
-                            element={<SignUp />}
+                            element={
+                                <PrivateSignupLogin>
+                                    <SignUp />
+                                </PrivateSignupLogin>
+                            }
                         />
                         <Route
                             path='/login'
-                            element={<Login />}
+                            element={
+                                <PrivateSignupLogin>
+                                    <Login />
+                                </PrivateSignupLogin>
+                            }
                         />
                         <Route
                             path='/profile'
