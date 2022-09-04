@@ -34,7 +34,7 @@ export const Login = () => {
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <div className='auth-wrapper'>
                         <div className='auth-header'>
-                            <h2>Register</h2>
+                            <h2>Login</h2>
                         </div>
                         <div className='auth-label'>
                             <label htmlFor='Email'>Email</label>

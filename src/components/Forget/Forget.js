@@ -23,7 +23,7 @@ export const Forget = () => {
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <div className='auth-wrapper'>
                         <div className='auth-header'>
-                            <h2>Sign Up</h2>
+                            <h2>Change Password</h2>
                         </div>
                         <div className='auth-label'>
                             <label htmlFor='Email'>Email</label>

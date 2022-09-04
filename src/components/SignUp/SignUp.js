@@ -11,6 +11,7 @@ export const SignUp = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [err, setErr] = useState('');
+    const re = new RegExp('^(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$');
     const handleSubmit = async (e) => {
         e.preventDefault();
         let user;
@@ -18,6 +19,10 @@ export const SignUp = () => {
             setErr('');
             if (pwdRef.current.value !== pwdCnfRef.current.value) {
                 return setErr("Password doesn't match!!!");
+            } else if (!re.test(pwdRef.current.value)) {
+                return setErr(
+                    'Password should be atleast 8 chars long and must contain a combination of uppercase, lowercase letter, number and special character.'
+                );
             }
             const signUpRes = await auth.createUserWithEmailAndPassword(
                 emailRef.current.value,
