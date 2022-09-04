@@ -8,7 +8,10 @@
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
 }
-
+.app {
+    position: relative;
+    padding-bottom: 80px;
+}
 a {
     text-decoration: none;
     color: $font-primary;
@@ -17,6 +20,13 @@ body {
     background: $primary-color;
 }
 
-.container {
+.Container {
     margin: 0px 40px;
+}
+
+.err-box {
+    border: 1px solid rgba(228, 114, 114, 0.56);
+    background-color: rgba(228, 114, 114, 0.3);
+    padding: 5px 10px;
+    border-radius: 5px;
 }

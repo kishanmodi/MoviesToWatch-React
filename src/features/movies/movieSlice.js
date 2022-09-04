@@ -68,6 +68,7 @@ export const fetchAsyncRecommedation = createAsyncThunk(
     }
 );
 
+//! initial state
 const initialState = {
     movies: {},
     shows: {},
@@ -93,32 +94,19 @@ const movieSlice = createSlice({
         }
     },
     extraReducers: {
-        [fetchAsyncMovies.pending]: () => {
-            console.log('pending');
-        },
         [fetchAsyncMovies.fulfilled]: (state, { payload }) => {
-            console.log('fetched SuccessFully');
             return { ...state, movies: payload };
         },
-        [fetchAsyncMovies.rejected]: () => {
-            console.log('rejected');
-        },
-
         [fetchAsyncShows.fulfilled]: (state, { payload }) => {
-            console.log('fetched SuccessFully');
             return { ...state, shows: payload };
         },
         [fetchAsyncMovieOrShowDetails.fulfilled]: (state, { payload }) => {
-            console.log('fetched SuccessFully');
             return { ...state, selectedMovieOrShow: payload };
         },
         [fetchAsyncRecommedation.pending]: (state) => {
-            console.log('pending rcmd');
             return { ...state, loading: true };
         },
         [fetchAsyncRecommedation.fulfilled]: (state, { payload }) => {
-            console.log('fetched SuccessFully recmd');
-
             return {
                 ...state,
                 loading: false,
@@ -126,15 +114,13 @@ const movieSlice = createSlice({
             };
         },
         [fetchAsyncRecommedation.rejected]: (state) => {
-            console.log('rejected rcmd');
             return {
                 ...state,
-                loading: false,
+                loading: true,
                 selectedMovieRecommendation: []
             };
         },
         [fetchAsyncProviders.fulfilled]: (state, { payload }) => {
-            console.log('fetched SuccessFully providers');
             return {
                 ...state,
                 providers: payload,
@@ -144,11 +130,14 @@ const movieSlice = createSlice({
     }
 });
 
+// * normal reducers for clean up functions
 export const {
     removeSelectedMoviesOrShows,
     removeRecommended,
     removeProviders
 } = movieSlice.actions;
+
+// * selector functions that provide access to the store's states
 export const getAllMovies = (state) => state.movies.movies;
 export const getAllShows = (state) => state.movies.shows;
 export const getSelectedMovieOrShowDetails = (state) =>
@@ -158,4 +147,6 @@ export const getRecommendedMovies = (state) =>
 export const getProviders = (state) => state.movies.providers;
 export const getLoading = (state) => state.movies.loading;
 export const getLoadingProvider = (state) => state.movies.loadingProvider;
+
+// * exported the movie reducer function
 export default movieSlice.reducer;

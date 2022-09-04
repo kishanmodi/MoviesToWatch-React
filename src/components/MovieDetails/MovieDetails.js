@@ -21,7 +21,6 @@ export const MovieDetails = () => {
     const dispatch = useDispatch();
     const data = useSelector(getSelectedMovieOrShowDetails);
     const providers = useSelector(getProviders);
-    console.log(providers);
 
     const loadingProvider = useSelector(getLoadingProvider);
     useEffect(() => {
@@ -88,9 +87,7 @@ export const MovieDetails = () => {
                                         <span>{data.Awards}</span>
                                     </div>
                                 </div>
-                                {loadingProvider
-                                    ? console.log(providers)
-                                    : null}
+
                                 {loadingProvider ? (
                                     <div className='provider-box'>
                                         {providers.youtube_link !== 'None' ||
@@ -127,9 +124,7 @@ export const MovieDetails = () => {
                                             </div>
                                         ) : null}
                                     </div>
-                                ) : (
-                                    <>Error</>
-                                )}
+                                ) : null}
                             </div>
                         </div>
                         <div className='section-right'>

@@ -9,7 +9,7 @@ import { settings } from '../../common/settings';
 export const MovieListing = () => {
     const movies = useSelector(getAllMovies);
     const shows = useSelector(getAllShows);
-    console.log(movies);
+
     let renderMovies =
         movies.Response === 'True' ? (
             movies.Search.map((movie, index) => (

@@ -1,13 +1,12 @@
 @import '../../common/colors.scss';
 
 .movie-section {
-    margin-top: 50px;
+    margin-top: 10px;
     display: flex;
     justify-content: space-evenly;
     padding: 40px 0px;
     color: $font-primary;
     font-weight: 400;
-    margin-bottom: 70px;
     position: relative;
     @media (max-width: 666px) {
         width: 100%;

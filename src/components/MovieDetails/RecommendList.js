@@ -12,34 +12,28 @@ export const RecommendList = () => {
     const rcmd = useSelector(getRecommendedMovies);
     const loading = useSelector(getLoading);
     let renderMovies =
-        rcmd.length !== 0 ? (
-            rcmd.map((movie, index) => (
-                <MovieCard
-                    key={index}
-                    data={movie}
-                />
-            ))
-        ) : (
-            <div className='loading'>
-                <h4>error</h4>
-            </div>
-        );
+        rcmd.length !== 0
+            ? rcmd.map((movie, index) => (
+                  <MovieCard
+                      key={index}
+                      data={movie}
+                  />
+              ))
+            : null;
     return (
-        <div className='recommend-section'>
-            <div className='recommend-header'>
-                <h3>Recommendations</h3>
-            </div>
-            {loading ? (
-                <div className='loading'>
-                    <h4>Loading...</h4>
-                </div>
-            ) : (
-                <div className='movie-list'>
-                    <div className='movie-container'>
-                        <Slider {...settings}>{renderMovies}</Slider>
+        <>
+            {loading ? null : (
+                <div className='recommend-section'>
+                    <div className='recommend-header'>
+                        <h3>Recommendations</h3>
+                    </div>
+                    <div className='movie-list'>
+                        <div className='movie-container'>
+                            <Slider {...settings}>{renderMovies}</Slider>
+                        </div>
                     </div>
                 </div>
             )}
-        </div>
+        </>
     );
 };
