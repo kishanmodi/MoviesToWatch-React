@@ -84,12 +84,12 @@ export const Header = () => {
                     </div>
                 </Link>
             </div>
-            <div className='search-bar'>
+            <div
+                className='search-bar'
+                style={inputDisabled ? { display: 'none' } : null}
+            >
                 <form onSubmit={submitHandler}>
-                    <div
-                        className='input-box'
-                        style={inputDisabled ? { display: 'none' } : null}
-                    >
+                    <div className='input-box'>
                         <input
                             type='text'
                             value={term}

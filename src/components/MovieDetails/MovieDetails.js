@@ -13,7 +13,9 @@ import {
     fetchAsyncProviders,
     getProviders,
     getLoadingProvider,
-    removeProviders
+    removeProviders,
+    removeMagnet,
+    fetchAsyncMagnet
 } from '../../features/movies/movieSlice';
 
 export const MovieDetails = () => {
@@ -21,18 +23,20 @@ export const MovieDetails = () => {
     const dispatch = useDispatch();
     const data = useSelector(getSelectedMovieOrShowDetails);
     const providers = useSelector(getProviders);
-
     const loadingProvider = useSelector(getLoadingProvider);
+    const magnet = useSelector((state) => state.movies.magnet);
     useEffect(() => {
         dispatch(fetchAsyncProviders(imdbID));
         dispatch(fetchAsyncMovieOrShowDetails(imdbID));
         dispatch(fetchAsyncRecommedation(imdbID));
+        dispatch(fetchAsyncMagnet(data.title));
         return () => {
             dispatch(removeSelectedMoviesOrShows());
             dispatch(removeRecommended());
             dispatch(removeProviders());
+            dispatch(removeMagnet());
         };
-    }, [dispatch, imdbID]);
+    }, [dispatch, imdbID, data.title]);
 
     return (
         <>
@@ -125,6 +129,19 @@ export const MovieDetails = () => {
                                         ) : null}
                                     </div>
                                 ) : null}
+                                {/* 
+                                <div className='magnet-box'>
+                                    <div className='stream'>Download</div>
+                                    <div className='magnet'>
+                                        <a
+                                            href={magnet}
+                                            target='_blank'
+                                            rel='noreferrer'
+                                        >
+                                            <i className='fa-solid fa-magnet fa 1x'></i>
+                                        </a>
+                                    </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className='section-right'>

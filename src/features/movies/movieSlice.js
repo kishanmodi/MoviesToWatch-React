@@ -92,7 +92,7 @@ const initialState = {
     loading: false,
     results: [],
     inputDisabled: false,
-    magnetLink: ''
+    magnet: ''
 };
 
 const movieSlice = createSlice({
@@ -164,7 +164,7 @@ const movieSlice = createSlice({
         [fetchAsyncMagnet.fulfilled]: (state, { payload }) => {
             return {
                 ...state,
-                magnet: payload.magnet
+                magnet: payload.data
             };
         },
         [fetchAsyncMagnet.rejected]: (state) => {
