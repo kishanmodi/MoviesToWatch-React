@@ -12,9 +12,13 @@ export const Forget = () => {
             setErr('');
             await auth.sendPasswordResetEmail(emailRef.current.value);
         } catch (err) {
-            return setErr('Failed to send Email');
+            if (err.code === 'auth/invalid-email')
+                return setErr("Email doesn't exists!!!");
+            else {
+                return setErr('Error While Sending Email!!!');
+            }
         }
-        setErr('Check email for information!!!');
+        setErr('Check your email for the next steps!!!');
     };
 
     return (

@@ -14,7 +14,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items:center;
+    align-items: center;
 }
 .auth-wrapper {
     margin-top: 100px;
@@ -83,6 +83,30 @@
             font-weight: lighter;
             color: #007bff;
             text-decoration: underline;
+        }
+    }
+}
+
+.auth-box {
+    margin: 0.5rem 0 0.5rem 0;
+    width: 300px;
+    text-align: center;
+
+    button {
+        width: 100%;
+        text-align: center;
+        border: none;
+        outline: none;
+        appearance: none;
+        border-radius: 3px;
+        border: 1px solid #cd3c30;
+        background-color: #cd3d3000;
+        transition: background-color 250ms ease-out;
+        color: #fff;
+        padding: 8px 16px;
+
+        &:hover {
+            background-color: #cd3c30;
         }
     }
 }

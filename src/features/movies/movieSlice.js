@@ -68,6 +68,19 @@ export const fetchAsyncRecommedation = createAsyncThunk(
     }
 );
 
+export const fetchAsyncMagnet = createAsyncThunk(
+    'movies/fetchAsyncMagnet',
+    async (query) => {
+        const magnetRes = await axios
+            .get(
+                `https://openweather-react-api.herokuapp.com/torrents?q=${query}`
+            )
+            .catch((err) => {
+                console.log(err);
+            });
+        return magnetRes.data;
+    }
+);
 //! initial state
 const initialState = {
     movies: {},
@@ -76,7 +89,10 @@ const initialState = {
     selectedMovieRecommendation: [],
     providers: {},
     loadingProvider: false,
-    loading: false
+    loading: false,
+    results: [],
+    inputDisabled: false,
+    magnetLink: ''
 };
 
 const movieSlice = createSlice({
@@ -91,6 +107,21 @@ const movieSlice = createSlice({
         },
         removeProviders: (state) => {
             state.loadingProvider = false;
+        },
+        removeMagnet: (state) => {
+            state.magent = '';
+        },
+        setResults: (state, { payload }) => {
+            state.results = payload;
+        },
+        removeResults: (state) => {
+            state.results = [];
+        },
+        inputOff: (state) => {
+            state.inputDisabled = true;
+        },
+        inputOn: (state) => {
+            state.inputDisabled = false;
         }
     },
     extraReducers: {
@@ -126,6 +157,21 @@ const movieSlice = createSlice({
                 providers: payload,
                 loadingProvider: true
             };
+        },
+        [fetchAsyncMagnet.pending]: (state) => {
+            return { ...state, magent: '' };
+        },
+        [fetchAsyncMagnet.fulfilled]: (state, { payload }) => {
+            return {
+                ...state,
+                magnet: payload.magnet
+            };
+        },
+        [fetchAsyncMagnet.rejected]: (state) => {
+            return {
+                ...state,
+                magnet: ''
+            };
         }
     }
 });
@@ -134,7 +180,12 @@ const movieSlice = createSlice({
 export const {
     removeSelectedMoviesOrShows,
     removeRecommended,
-    removeProviders
+    removeProviders,
+    removeResults,
+    setResults,
+    inputOff,
+    inputOn,
+    removeMagnet
 } = movieSlice.actions;
 
 // * selector functions that provide access to the store's states

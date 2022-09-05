@@ -8,15 +8,26 @@ import debounce from 'lodash.debounce';
 import './Header.scss';
 import {
     fetchAsyncMovies,
-    fetchAsyncShows
+    fetchAsyncShows,
+    removeResults,
+    setResults
 } from '../../features/movies/movieSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 export const Header = () => {
     const currentUser = useSelector((state) => state.user.currentUser);
     const dispatch = useDispatch();
     const [term, setTerm] = useState('');
-    const [result, setResult] = useState([]);
+    const results = useSelector((state) => state.movies.results);
+    const inputDisabled = useSelector((state) => state.movies.inputDisabled);
     const navigate = useNavigate();
+    const [temp, setTemp] = useState([]);
+    useEffect(() => {
+        dispatch(setResults(temp));
+        return () => {
+            dispatch(removeResults());
+        };
+    }, [dispatch, temp]);
 
     const generateSuggestions = async (q) => {
         let results;
@@ -28,12 +39,11 @@ export const Header = () => {
             console.log(error);
         }
         if (results.data.success) {
-            setResult(results.data.data);
+            setTemp(results.data.data);
         } else {
-            setResult([]);
+            setTemp([]);
         }
     };
-
     const debouncedSuggestions = useCallback(
         debounce(generateSuggestions, 250),
         []
@@ -48,18 +58,17 @@ export const Header = () => {
             dispatch(fetchAsyncShows(term));
             navigate('/');
         }
-        setResult([]);
+        setTemp([]);
         setTerm('');
     };
     const clickHandler = (e, q) => {
         if (q === '') {
-            alert('Enter Valid Query');
         } else {
             dispatch(fetchAsyncMovies(q));
             dispatch(fetchAsyncShows(q));
             navigate('/');
         }
-        setResult([]);
+        setTemp([]);
         setTerm('');
     };
     return (
@@ -77,7 +86,10 @@ export const Header = () => {
             </div>
             <div className='search-bar'>
                 <form onSubmit={submitHandler}>
-                    <div className='input-box'>
+                    <div
+                        className='input-box'
+                        style={inputDisabled ? { display: 'none' } : null}
+                    >
                         <input
                             type='text'
                             value={term}
@@ -87,15 +99,16 @@ export const Header = () => {
                                 debouncedSuggestions(e.target.value);
                             }}
                             style={
-                                result.length !== 0
+                                results.length !== 0
                                     ? { borderRadius: '8px 0px 0px 0px' }
                                     : null
                             }
                         />
                         <button
+                            disabled={term.length !== 0 ? false : true}
                             type='submit'
                             style={
-                                result.length !== 0
+                                results.length !== 0
                                     ? { borderRadius: '0px 8px 0px 0px' }
                                     : null
                             }
@@ -103,14 +116,14 @@ export const Header = () => {
                             <i className='fa fa-search'></i>
                         </button>
                     </div>
-                    {result.length !== 0 && (
+                    {results.length !== 0 && (
                         <div
                             className='dataResult'
                             style={
-                                result.length < 2 ? { height: 'auto' } : null
+                                results.length < 2 ? { height: 'auto' } : null
                             }
                         >
-                            {result.slice(0, 10).map((value, index) => {
+                            {results.slice(0, 10).map((value, index) => {
                                 return (
                                     <div
                                         className='dataItem'

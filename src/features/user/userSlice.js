@@ -29,10 +29,15 @@ const userSlice = createSlice({
         forgot: (state, { payload }) => {
             state.currentUser = payload;
             state.err = '';
+        },
+        authSignUp: (state, { payload }) => {
+            state.currentUser = payload;
+            state.err = '';
+            state.loginStatus = true;
         }
     }
 });
 
-export const { signup, login, logout } = userSlice.actions;
+export const { signup, login, logout, authSignUp } = userSlice.actions;
 
 export default userSlice.reducer;

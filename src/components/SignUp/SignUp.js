@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import './SignUp.scss';
-import { signup } from '../../features/user/userSlice';
+import { signup, authSignUp } from '../../features/user/userSlice';
 import { useDispatch } from 'react-redux';
-import { auth } from '../../firebase';
+import { auth, googleProvider } from '../../firebase';
 import { useNavigate, Link } from 'react-router-dom';
 export const SignUp = () => {
     const emailRef = useRef();
@@ -30,12 +30,32 @@ export const SignUp = () => {
             );
             user = signUpRes.user;
         } catch (err) {
-            return setErr('Failed to create account');
+            if (err.code === 'auth/email-already-in-use')
+                return setErr('Email Already in Use!!!');
+            else if (
+                err.code === 'auth/invalid-password' ||
+                err.code === 'auth/invalid-email'
+            ) {
+                return setErr('Email/Password is Invalid!!!');
+            } else {
+                return setErr('Failed to create Account!!!');
+            }
         }
         dispatch(signup(user));
         navigate('/profile');
     };
-
+    const HandleAuthSignUp = async (e) => {
+        e.preventDefault();
+        let user;
+        try {
+            const authRes = await auth.signInWithPopup(googleProvider);
+            user = authRes.user;
+        } catch (err) {
+            return setErr('Failed to create Account!!!');
+        }
+        dispatch(authSignUp(user));
+        navigate('/profile');
+    };
     return (
         <div className='auth-container'>
             <div className='auth-container-wrapper'>
@@ -95,6 +115,14 @@ export const SignUp = () => {
                         <span>Already Have an Account? </span>
                         <Link to='/login'>Log in</Link>
                     </h4>
+                </div>
+                <div className='auth-box'>
+                    <button
+                        id='auth'
+                        onClick={HandleAuthSignUp}
+                    >
+                        Sign up with Google
+                    </button>
                 </div>
             </div>
         </div>
