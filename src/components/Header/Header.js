@@ -33,7 +33,7 @@ export const Header = () => {
         let results;
         try {
             results = await axios.get(
-                `https://openweather-react-api.herokuapp.com/movies?m=${q}`
+                `https://test-repo-er2a.onrender.com/movies?m=${q}`
             );
         } catch (error) {
             console.log(error);

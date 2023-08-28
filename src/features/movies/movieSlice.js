@@ -18,7 +18,7 @@ export const fetchAsyncProviders = createAsyncThunk(
     'movies/fetchAsyncProviders',
     async (id) => {
         const response = await axios
-            .get(`https://get-rcmd.herokuapp.com/provider/?id=${id}`)
+            .get(`https://get-rcmd.onrender.com/provider/?id=${id}`)
             .catch((err) => {
                 console.log(err);
             });
@@ -51,7 +51,7 @@ export const fetchAsyncRecommedation = createAsyncThunk(
     'movies/fetchAsyncRecommedation',
     async (id) => {
         const imdbRes = await axios
-            .get(`https://get-rcmd.herokuapp.com/recommend/?id=${id}`)
+            .get(`https://get-rcmd.onrender.com/recommend/?id=${id}`)
             .catch((err) => {
                 console.log(err);
             });
@@ -73,7 +73,7 @@ export const fetchAsyncMagnet = createAsyncThunk(
     async (query) => {
         const magnetRes = await axios
             .get(
-                `https://openweather-react-api.herokuapp.com/torrents?q=${query}`
+                `https://test-repo-er2a.onrender.com/torrents?q=${query}`
             )
             .catch((err) => {
                 console.log(err);
